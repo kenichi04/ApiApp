@@ -20,6 +20,9 @@ class FavoriteAdapter(private val context: Context): RecyclerView.Adapter<Recycl
     // （ApiFragmentへ通知するメソッド）
     var onClickDeleteFavorite: ((FavoriteShop) -> Unit)? = null
 
+    // Itemを押したときのメソッド
+    var onClickItem: ((String) -> Unit)? = null
+
     // お気に入り画面用のViewHolderオブジェクトの生成
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
@@ -62,6 +65,11 @@ class FavoriteAdapter(private val context: Context): RecyclerView.Adapter<Recycl
             rootView.apply {
                 // 背景色
                 setBackgroundColor(ContextCompat.getColor(context, if (position % 2 == 0) android.R.color.white else android.R.color.darker_gray))
+
+                setOnClickListener {
+                    onClickItem?.invoke(data.url)
+                }
+
             }
             nameTextView.text = data.name
             Picasso.get().load(data.imageUrl).into(imageView)  // Picassoライブラリを使用しimageViewに画像セット

@@ -21,6 +21,9 @@ class ApiAdapter(private val context: Context): RecyclerView.Adapter<RecyclerVie
     // 一覧画面から削除する時のコールバック（ApiFragmentへ通知するメソッド）
     var onClickDeleteFavorite: ((Shop) -> Unit)? = null
 
+    // Itemを押した時のメソッド
+    var onClickItem: ((String) -> Unit)? = null
+
     // 表示リスト更新時に呼び出すメソッド
     fun refresh(list: List<Shop>) {
         items.apply {
@@ -72,6 +75,12 @@ class ApiAdapter(private val context: Context): RecyclerView.Adapter<RecyclerVie
                 // 偶数番目と奇数番目で背景色を変更させる
                 setBackgroundColor(ContextCompat.getColor(context,
                     if (position % 2 == 0) android.R.color.white else android.R.color.darker_gray))
+
+                setOnClickListener {
+                    onClickItem?.invoke(
+                        if (data.couponUrls.sp.isNotEmpty()) data.couponUrls.sp else data.couponUrls.pc
+                    )
+                }
             }
             // nameTextViewのtextプロパティに代入されたオブジェクトのnameプロパティを代入
             nameTextView.text = data.name
