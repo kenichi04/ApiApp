@@ -30,8 +30,34 @@ class MainActivity : AppCompatActivity(), FragmentCallback {
         }.attach()
     }
 
-    override fun onClickItem(url: String) {
-        WebViewActivity.start(this, url)
+    // webViewActivityから戻ったとき
+//    override fun onResume() {
+//        super.onResume()
+//        (viewPagerAdapter.fragments[VIEW_PAGER_POSITION_API] as ApiFragment).updateView()
+//        (viewPagerAdapter.fragments[VIEW_PAGER_POSITION_FAVORITE] as FavoriteFragment).updateData()
+//    }
+
+//    override fun onClickItem(url: String) {
+//        WebViewActivity.start(this, url)
+//    }
+
+    override fun onClickShop(shop: Shop) {
+        val url = if (shop.couponUrls.sp.isNotEmpty()) shop.couponUrls.sp else shop.couponUrls.pc
+        WebViewActivity.start(
+            this,
+            shop.id,
+            shop.name,
+            shop.logoImage ,
+            url)
+    }
+
+    override fun onClickFavoriteShop(favoriteShop: FavoriteShop) {
+        WebViewActivity.start(
+            this,
+            favoriteShop.id,
+            favoriteShop.name,
+            favoriteShop.imageUrl,
+            favoriteShop.url)
     }
 
     // Favoriteに追加する時のメソッド（Fragment -> Activityへ通知する）

@@ -61,7 +61,8 @@ class ApiFragment: Fragment() {
 
             // Itemをクリックしたとき
             onClickItem = {
-                fragmentCallback?.onClickItem(it)
+//                fragmentCallback?.onClickItem(it)
+                fragmentCallback?.onClickShop(it)
             }
         }
 
@@ -78,12 +79,11 @@ class ApiFragment: Fragment() {
                     if (dy == 0) {  // 縦方向の変化量（スクロール量）0の時は動いていないため何もしない
                         return
                     }
-                    val totalCount = apiAdapter.itemCount  // RecyclerViewの現在の表示アイテム数
+                    // RecyclerViewの現在の表示アイテム数
+                    val totalCount = apiAdapter.itemCount
                     // RecyclerViewの現在見えている最後のViewHolderのposition
                     val lastVisibleItem = (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                     // totalCountとlastVisibleItemから全体のアイテム数のうちどこまでが見えているかがわかる(例:totalCountが20、lastVisibleItemが15の時は、現在のスクロール位置から下に5件見えていないアイテムがある)
-                    // 一番下にスクロールした時に次の20件を表示する等の実装が可能になる。
-                    // ユーザビリティを考えると、一番下にスクロールしてから追加した場合、一度スクロールが止まるので、ユーザーは気付きにくい
                     // ここでは、一番下から5番目を表示した時に追加読み込みする様に実装する
                     if (!isLoading && lastVisibleItem >= totalCount - 6) {
                         // 読み込み中ではなく、かつ、現在のスクロール位置から下に5件見えていないアイテムがある
@@ -95,8 +95,19 @@ class ApiFragment: Fragment() {
         swipeRefreshLayout.setOnRefreshListener {
             updateData()
         }
+//        updateData()
+    }
+
+    // webViewActivityから戻った時にも更新
+    override fun onStart() {
+        super.onStart()
         updateData()
     }
+
+//    override fun onResume() {
+//        super.onResume()
+//        updateData()
+//    }
 
     // お気に入りが削除された時の処理（Activityからコールされる）
     fun updateView() {

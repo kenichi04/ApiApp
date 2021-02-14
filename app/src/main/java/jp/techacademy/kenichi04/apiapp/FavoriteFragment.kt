@@ -15,6 +15,7 @@ class FavoriteFragment: Fragment() {
     // FavoriteFragment -> MainActivityに削除を通知する
     private var fragmentCallback: FragmentCallback? = null
 
+    // FragmentがActivityにアタッチされた時に呼び出される
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is FragmentCallback) {
@@ -42,7 +43,8 @@ class FavoriteFragment: Fragment() {
             }
             // Itemをクリックした時
             onClickItem = {
-                fragmentCallback?.onClickItem(it)
+//                fragmentCallback?.onClickItem(it)
+                fragmentCallback?.onClickFavoriteShop(it)
             }
         }
         // RecyclerViewの初期化
@@ -53,8 +55,19 @@ class FavoriteFragment: Fragment() {
         swipeRefreshLayout.setOnRefreshListener {
             updateData()
         }
+//        updateData()
+    }
+
+    // webViewActivityから戻った時にも更新
+    override fun onStart() {
+        super.onStart()
         updateData()
     }
+
+//    override fun onResume() {
+//        super.onResume()
+//        updateData()
+//    }
 
     fun updateData() {
         favoriteAdapter.refresh(FavoriteShop.findAll())
