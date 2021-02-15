@@ -65,7 +65,7 @@ class FavoriteAdapter(private val context: Context): RecyclerView.Adapter<Recycl
         holder.apply {
             rootView.apply {
                 // 背景色
-                setBackgroundColor(ContextCompat.getColor(context, if (position % 2 == 0) android.R.color.white else android.R.color.darker_gray))
+//                setBackgroundColor(ContextCompat.getColor(context, if (position % 2 == 0) android.R.color.white else android.R.color.darker_gray))
 
                 setOnClickListener {
 //                    onClickItem?.invoke(data.url)
@@ -74,6 +74,7 @@ class FavoriteAdapter(private val context: Context): RecyclerView.Adapter<Recycl
 
             }
             nameTextView.text = data.name
+            addressTextView.text = data.address
             Picasso.get().load(data.imageUrl).into(imageView)  // Picassoライブラリを使用しimageViewに画像セット
             favoriteImageView.setOnClickListener {
                 onClickDeleteFavorite?.invoke(data)
@@ -86,6 +87,7 @@ class FavoriteAdapter(private val context: Context): RecyclerView.Adapter<Recycl
     class FavoriteItemViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val rootView: ConstraintLayout = view.findViewById(R.id.rootView)
         val nameTextView: TextView = view.findViewById(R.id.nameTextView)
+        val addressTextView: TextView = view.findViewById(R.id.addressTextView)
         val imageView: ImageView = view.findViewById(R.id.imageView)
         val favoriteImageView: ImageView = view.findViewById(R.id.favoriteImageView)
     }

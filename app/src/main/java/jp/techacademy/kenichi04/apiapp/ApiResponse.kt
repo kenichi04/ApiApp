@@ -1,4 +1,5 @@
 package jp.techacademy.kenichi04.apiapp
+
 import com.google.gson.annotations.SerializedName
 
 
@@ -13,6 +14,8 @@ data class Results(
 )
 
 data class Shop(
+    @SerializedName("address")
+    val address: String,
     @SerializedName("coupon_urls")
     val couponUrls: CouponUrls,
     @SerializedName("id")

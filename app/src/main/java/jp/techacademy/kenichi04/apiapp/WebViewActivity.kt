@@ -15,6 +15,7 @@ class WebViewActivity : AppCompatActivity() {
 
     var shopId = ""
     var shopName = ""
+    var shopAddress = ""
     var shopImageUrl = ""
     var shopUrl = ""
     var isFavorite = false
@@ -25,6 +26,7 @@ class WebViewActivity : AppCompatActivity() {
 
         shopId = intent.getStringExtra(KEY_ID).toString()
         shopName = intent.getStringExtra(KEY_NAME).toString()
+        shopAddress = intent.getStringExtra(KEY_ADDRESS).toString()
         shopImageUrl = intent.getStringExtra(KEY_IMAGE_URL).toString()
         shopUrl = intent.getStringExtra(KEY_URL).toString()
         isFavorite = FavoriteShop.findBy(shopId) != null
@@ -61,6 +63,7 @@ class WebViewActivity : AppCompatActivity() {
                 FavoriteShop.insert(FavoriteShop().apply {
                     id = shopId
                     name = shopName
+                    address = shopAddress
                     imageUrl = shopImageUrl
                     url = shopUrl
                 })
@@ -95,14 +98,16 @@ class WebViewActivity : AppCompatActivity() {
     companion object {
         private const val KEY_ID = "key_id"
         private const val KEY_NAME = "key_name"
+        private const val KEY_ADDRESS = "key_address"
         private const val KEY_IMAGE_URL = "imageUrl"
         private const val KEY_URL = "key_url"
 
-        fun start(activity: Activity, id: String, name: String, imageUrl: String, url: String) {
+        fun start(activity: Activity, id: String, name: String, address: String, imageUrl: String, url: String) {
             activity.startActivity(
                 Intent(activity, WebViewActivity::class.java)
                     .putExtra(KEY_ID, id)
                     .putExtra(KEY_NAME, name)
+                    .putExtra(KEY_ADDRESS, address)
                     .putExtra(KEY_IMAGE_URL, imageUrl)
                     .putExtra(KEY_URL, url)
             )

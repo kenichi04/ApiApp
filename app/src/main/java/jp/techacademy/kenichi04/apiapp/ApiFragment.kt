@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -67,9 +68,12 @@ class ApiFragment: Fragment() {
         }
 
         // RecyclerViewの初期化
+        // ListViewのように区切り線を入れる
+        val itemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         recyclerView.apply {
             adapter = apiAdapter
             layoutManager = LinearLayoutManager(requireContext())  // 一列ずつ表示
+            addItemDecoration(itemDecoration)
 
             // Scrollを検知するListener実装。RecyclerViewの下端に近づいた時に次のページを読み込んで、下に付け足す
             addOnScrollListener(object: RecyclerView.OnScrollListener() {

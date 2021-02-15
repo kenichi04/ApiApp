@@ -65,6 +65,7 @@ class ApiAdapter(private val context: Context): RecyclerView.Adapter<RecyclerVie
         // レイアウトファイルからidがrootViewのConstraintLayoutオブジェクトを取得し代入
         val rootView: ConstraintLayout = view.findViewById(R.id.rootView)
         val nameTextView: TextView = view.findViewById(R.id.nameTextView)
+        val addressTextView: TextView = view.findViewById(R.id.addressTextView)
         val imageView: ImageView = view.findViewById(R.id.imageView)
         val favoriteImageView: ImageView = view.findViewById(R.id.favoriteImageView)
     }
@@ -93,8 +94,8 @@ class ApiAdapter(private val context: Context): RecyclerView.Adapter<RecyclerVie
         holder.apply {
             rootView.apply {
                 // 偶数番目と奇数番目で背景色を変更させる
-                setBackgroundColor(ContextCompat.getColor(context,
-                    if (position % 2 == 0) android.R.color.white else android.R.color.darker_gray))
+//                setBackgroundColor(ContextCompat.getColor(context,
+//                    if (position % 2 == 0) android.R.color.white else android.R.color.darker_gray))
 
                 setOnClickListener {
 //                    onClickItem?.invoke(if (data.couponUrls.sp.isNotEmpty()) data.couponUrls.sp else data.couponUrls.pc)
@@ -103,6 +104,7 @@ class ApiAdapter(private val context: Context): RecyclerView.Adapter<RecyclerVie
             }
             // nameTextViewのtextプロパティに代入されたオブジェクトのnameプロパティを代入
             nameTextView.text = data.name
+            addressTextView.text = data.address
             //Picassoライブラリを使い、imageViewにdata.logoImageのurlの画像を読み込ませる
             Picasso.get().load(data.logoImage).into(imageView)
             // 白抜きの星マーク画像を指定

@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity(), FragmentCallback {
             this,
             shop.id,
             shop.name,
+            shop.address,
             shop.logoImage ,
             url)
     }
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity(), FragmentCallback {
             this,
             favoriteShop.id,
             favoriteShop.name,
+            favoriteShop.address,
             favoriteShop.imageUrl,
             favoriteShop.url)
     }
@@ -64,6 +66,7 @@ class MainActivity : AppCompatActivity(), FragmentCallback {
     override fun onAddFavorite(shop: Shop) {
         FavoriteShop.insert(FavoriteShop().apply {
             id = shop.id
+            address = shop.address
             name = shop.name
             imageUrl = shop.logoImage
             url = if (shop.couponUrls.sp.isNotEmpty()) shop.couponUrls.sp else shop.couponUrls.pc

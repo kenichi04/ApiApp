@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_favorite.*
 
@@ -48,9 +49,11 @@ class FavoriteFragment: Fragment() {
             }
         }
         // RecyclerViewの初期化
+        val itemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         recyclerView.apply {
             adapter = favoriteAdapter
             layoutManager = LinearLayoutManager(requireContext())  // 一列ずつ表示
+            addItemDecoration(itemDecoration)
         }
         swipeRefreshLayout.setOnRefreshListener {
             updateData()

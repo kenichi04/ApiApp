@@ -7,6 +7,7 @@ import io.realm.annotations.PrimaryKey
 open class FavoriteShop: RealmObject() {
     @PrimaryKey
     var id: String = ""
+    var address: String = ""
     var imageUrl: String = ""
     var name: String = ""
     var url: String = ""
