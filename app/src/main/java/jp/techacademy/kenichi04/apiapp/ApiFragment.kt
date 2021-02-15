@@ -4,14 +4,17 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
+import io.realm.Sort
 import kotlinx.android.synthetic.main.fragment_api.*
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -99,6 +102,24 @@ class ApiFragment: Fragment() {
         swipeRefreshLayout.setOnRefreshListener {
             updateData()
         }
+
+        // searchViewの設定
+        searchView.isSubmitButtonEnabled = true
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText == null || newText.equals("")) {
+                    updateData()
+                }
+                return false
+            }
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                Log.d("ApiApp", query)
+                updateData(false, query)
+
+                return false
+            }
+        })
+
 //        updateData()
     }
 
@@ -118,7 +139,7 @@ class ApiFragment: Fragment() {
         recyclerView.adapter?.notifyDataSetChanged()  // RecyclerViewのAdapterに対して再描画のリクエスト
     }
 
-    private fun updateData(isAdd: Boolean = false) {
+    private fun updateData(isAdd: Boolean = false, query: String? = "") {
         if (isLoading) {
             return
         } else {
@@ -132,12 +153,18 @@ class ApiFragment: Fragment() {
         // page:0 は１件目から、page:1 は21件目から取得、page:2 は...
         val start = page * COUNT + 1
 
+        var keyWord = getString(R.string.api_keyword)
+        if (query != null && !(query.equals(""))) {
+            keyWord = query
+        }
+
         val url = StringBuilder()
             .append(getString(R.string.base_uri))   // https://webservice.recruit.co.jp/hotpepper/gourmet/v1/
             .append("?key=").append(getString(R.string.api_key))  // Apiを使うためのApiKey
             .append("&start=").append(start)  // 何件目からデータを取得するか
             .append("&count=").append(COUNT)  // 1回で20件取得する
-            .append("&keyword=").append(getString(R.string.api_keyword))  // 検索ワード
+//            .append("&keyword=").append(getString(R.string.api_keyword))  // 検索ワード
+            .append("&keyword=").append(keyWord)  // 検索ワード
             .append("&format=json")  // ここで利用しているAPIは戻り値をxmlかjsonで選択できる
             .toString()
         // Http通信を行う本体

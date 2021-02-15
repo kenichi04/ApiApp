@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity(), FragmentCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        viewPagerAdapter
+
         // ViewPager2の初期化
         viewPager2.apply {
             adapter = viewPagerAdapter
