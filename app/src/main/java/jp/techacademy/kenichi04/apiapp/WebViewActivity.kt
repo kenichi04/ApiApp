@@ -77,7 +77,7 @@ class WebViewActivity : AppCompatActivity() {
     private fun showConfirmDeleteFavoriteDialog(id: String, item: MenuItem) {
         AlertDialog.Builder(this)
             .setTitle(R.string.delete_favorite_dialog_title)
-            .setMessage(R.string.delete_favorite_dialog_massage)
+            .setMessage(R.string.delete_favorite_dialog_message)
             .setPositiveButton(android.R.string.ok) { _, _ ->
                 FavoriteShop.delete(id)
                 item.setIcon(R.drawable.ic_star_border)

@@ -32,13 +32,6 @@ class MainActivity : AppCompatActivity(), FragmentCallback {
         }.attach()
     }
 
-    // webViewActivityから戻ったとき
-//    override fun onResume() {
-//        super.onResume()
-//        (viewPagerAdapter.fragments[VIEW_PAGER_POSITION_API] as ApiFragment).updateView()
-//        (viewPagerAdapter.fragments[VIEW_PAGER_POSITION_FAVORITE] as FavoriteFragment).updateData()
-//    }
-
 //    override fun onClickItem(url: String) {
 //        WebViewActivity.start(this, url)
 //    }
@@ -84,7 +77,7 @@ class MainActivity : AppCompatActivity(), FragmentCallback {
     private fun showConfirmDeleteFavoriteDialog(id: String) {
         AlertDialog.Builder(this)
             .setTitle(R.string.delete_favorite_dialog_title)
-            .setMessage(R.string.delete_favorite_dialog_massage)
+            .setMessage(R.string.delete_favorite_dialog_message)
             .setPositiveButton(android.R.string.ok) { _, _ ->
                 deleteFavorite(id)
             }

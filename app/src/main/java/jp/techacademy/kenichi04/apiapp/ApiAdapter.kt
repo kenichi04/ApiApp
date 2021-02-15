@@ -25,15 +25,6 @@ class ApiAdapter(private val context: Context): RecyclerView.Adapter<RecyclerVie
 //    var onClickItem: ((String) -> Unit)? = null
     var onClickItem: ((Shop) -> Unit)? = null
 
-    // 表示リスト更新時に呼び出すメソッド
-//    fun refresh(list: List<Shop>) {
-//        items.apply {
-//            clear()   // itemsを空にする
-//            addAll(list)   // itemsにlistを全て追加する
-//        }
-//        notifyDataSetChanged()   // recycleViewを再描画させる
-//    }
-
     fun refresh(list: List<Shop>) {
         update(list, false)
     }
